@@ -1,0 +1,9 @@
+<h1>Lixeira</h1>
+
+<ul>
+    {% for item in listas %}
+        <li>{{ item.titulo }}</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'home' %}">Voltar</a>

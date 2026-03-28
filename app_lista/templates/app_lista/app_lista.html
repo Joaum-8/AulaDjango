@@ -1,0 +1,34 @@
+<h1>Aplicativo de Lista</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="titulo" placeholder="Digite uma tarefa">
+    <button type="submit">Adicionar</button>
+</form>
+
+<hr>
+
+<a href="{% url 'lixeira' %}">🗑️ Ir para Lixeira</a>
+
+<ul>
+    {% for item in listas %}
+        <li>
+
+            <!-- CHECKBOX -->
+            <form method="POST" action="{% url 'concluir' item.id %}" style="display:inline;">
+                {% csrf_token %}
+                <input type="checkbox" onChange="this.form.submit()" {% if item.concluida %}checked{% endif %}>
+            </form>
+
+            <!-- TEXTO -->
+            <strong style="{% if item.concluida %}text-decoration: line-through;{% endif %}">
+                {{ item.titulo }}
+            </strong>
+
+            <!-- AÇÕES -->
+            <a href="{% url 'editar' item.id %}">✏️</a>
+            <a href="{% url 'deletar' item.id %}">🗑️</a>
+
+        </li>
+    {% endfor %}
+</ul>
